@@ -1,0 +1,63 @@
+﻿@model tpoc3mvc2.Models.Books
+
+@{
+    ViewBag.Title = "Details";
+}
+<h1><span class="glyphicon glyphicon-book"></span> @Html.DisplayFor(model => model.Title)</h1>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Isbn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Isbn)
+        </dd>
+        <br/>
+        <dt>
+            @Html.DisplayNameFor(model => Model.Authors)
+        </dt>
+
+        @foreach (var author in Model.Authors)
+        {
+            <dd>
+               @Html.ActionLink(author.Title, "Details", "Authors", new { id = author.Id }, null)
+            </dd>
+        }
+        <br/>
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories)
+        </dt>
+        @foreach (var category in Model.Categories)
+        {
+            <dd>
+                @Html.ActionLink(category.Name, "Details", "Categories", new {id = category.Id}, null)
+            </dd>
+        }
+    </dl>
+
+    <br/>
+
+    <h3>
+        @Html.DisplayNameFor(model => model.Reviews)
+    </h3>
+
+    <div class="row">
+        <div class="col-sm-4">
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.Raw(review.Title)
+                    </div>
+                    <div class="panel-footer text-right">
+                        @Html.Raw(review.AuthorName)
+                    </div>
+                </div>
+            }
+        </div>    
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

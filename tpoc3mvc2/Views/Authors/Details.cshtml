@@ -1,0 +1,42 @@
+﻿@using System.ComponentModel
+@model tpoc3mvc2.Models.Authors
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+
+    <div class="row">
+        <h1>
+            <span class="glyphicon glyphicon-user"></span> @Html.DisplayFor(model => model.Title)
+        </h1>
+        <h3>@Html.DisplayFor(model => model.Content)</h3>
+        <hr/>
+        <h4>
+            Books written:
+        </h4>
+        <table class="table table-striped">
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <td>@Html.ActionLink(book.Title, "Details", "Books", new {id = book.Id}, null)</td>
+                    <td>
+                        @foreach (var category in book.Categories)
+                        {
+                            @Html.Raw(category.Name)
+                            if (book.Categories.Last() != category)
+                            {
+                                @Html.Raw(", ")
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
